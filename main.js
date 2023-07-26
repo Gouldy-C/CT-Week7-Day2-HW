@@ -51,7 +51,7 @@ function displayArray(arr) {
         console.log('=======================================')
         console.log(`Name: ${d.name}`)
         console.log(`Price: ${d.price.toFixed(2)}`)
-        console.log(`About: ${d.description}`)
+        console.log(`About: ${d.desc}`)
         console.log(`Category: ${d.category}`)
     }
 }
@@ -61,32 +61,32 @@ displayArray(shopItems)
 //            =======================================
 // main.js:52 Name: Air Max 97
 // main.js:53 Price: 130.00
-// main.js:54 About: undefined
+// main.js:54 About: The design of the shoe is commonly thought to be inspired by the bullet trains of Japan, but the design was inspired by mountain bikes. 
 // main.js:55 Category: shoes
 // main.js:51 =======================================
 // main.js:52 Name: Adidas NMD R1
 // main.js:53 Price: 128.00
-// main.js:54 About: undefined
+// main.js:54 About: New-wave classics, with a timeless vintage design: men’s NMD R1 gear is the ultimate go-anywhere shoe. Vibrant styles and soft cushioning will have you gliding through life, wherever it may take you.
 // main.js:55 Category: shoes
 // main.js:51 =======================================
 // main.js:52 Name: Gucci Oversize T-shirt with Interlocking G
 // main.js:53 Price: 580.00
-// main.js:54 About: undefined
+// main.js:54 About: The now recognizable oversize Gucci T-shirt continues to evolve with each new collection, the Interlocking G print is influenced by an '80s design from the archives. Streetwear continues to be a defining feature of Gucci's collections and is often juxtaposed by tailored separates.
 // main.js:55 Category: shirts
 // main.js:51 =======================================
 // main.js:52 Name: Nike Sportswear Club
 // main.js:53 Price: 18.97
-// main.js:54 About: undefined
+// main.js:54 About: The Nike Sportswear Club T-Shirt is made with our everyday cotton fabric and a classic fit for a familiar feel right out of the bag. An embroidered Futura logo on the chest provides a signature Nike look.
 // main.js:55 Category: shirts
 // main.js:51 =======================================
 // main.js:52 Name: Spanx Flare Jeans, Vintage Indigo
 // main.js:53 Price: 148.00
-// main.js:54 About: undefined
+// main.js:54 About: These 70s inspired flare jeans are the perfect wear everywhere with anything style. Designed with premium stretch denim, high-rise coverage and hidden core shaping technology, this jean puts a new twist on a retro silhouette.
 // main.js:55 Category: pants
 // main.js:51 =======================================
 // main.js:52 Name: Bonobos Premium Stretch Jeans
 // main.js:53 Price: 69.00
-// main.js:54 About: undefined
+// main.js:54 About: Resilient stretch denim made incredibly soft. Yes, jeans can be unbelievably comfortable.
 // main.js:55 Category: pants
 
 
@@ -111,9 +111,9 @@ const hwPerson = {
 
 function allElementsOfObject(obj) {
     for(ele of Object.keys(obj)) {
-        if (!(obj instanceof Array)){
+        if (!(Array.isArray(obj))){
             console.log(`${ele} contains:`)}
-        if (obj[ele] instanceof Object){
+        if ((obj[ele] instanceof Object)){
             allElementsOfObject(obj[ele])}
         else {
             console.log(obj[ele])
@@ -181,13 +181,12 @@ wordLength('fabricators').then((mes) => {console.log(mes)}).catch((mes) => {cons
 // Use the randomNumber function provided below to generate a random number 1-12
 
 function randomNumber(){
-    return Math.floor(Math.random() * 12)
+    return Math.ceil(Math.random() * 11)
 }
 
 class GameMember{
-    constructor(){
-        this.hand = [randomNumber(), randomNumber()]
-    }
+        hand = [randomNumber(), randomNumber()]
+
 
     handTotal(){
         return this.hand.reduce((acc, next) => acc + next)
@@ -203,9 +202,6 @@ class GameMember{
 }
 
 class Dealer extends GameMember{
-    constructor(){
-        super(this.hand)}
-    
     decision(){
         if (this.handTotal() < 17) {
             console.log(`Dealer hits`)
@@ -227,12 +223,8 @@ class Dealer extends GameMember{
 }
 
 class Player extends GameMember{
-    constructor(){
-        super(this.hand)}
-    
     decision(){
-        while(True){
-        let answer = prompt("Please enter 'hit' or 'stand' to make a decision", "hit or stand")
+        answer = getAnswer()
         if (answer === "hit"){
             this.hit()
             console.log(`Player hit. Players new cards are ${this.displayHand} for a total of ${this.handTotal}`)
@@ -247,13 +239,13 @@ class Player extends GameMember{
             }
         }
     }
-}
+
 
 function blackJack(){
     const dealer = new Dealer()
     const player = new Player()
 
-    console.log(`Dealer shows: ${dealer.this.hand[0]}`)
+    console.log(`Dealer shows: ${dealer.hand[0]}`)
     console.log(`Player shows: ${player.displayHand()}`)
     const plDecision = player.decision()
     const deDecision = dealer.decision()
