@@ -189,15 +189,19 @@ class GameMember{
 
 
     handTotal(){
-        return this.hand.reduce((acc, next) => acc + next)
+        const total = this.hand.reduce((acc, next) => acc + next)
+        return total
     }
 
     displayHand(){
-        console.log(this.hand.join(', '))
+        const strHand = this.hand.join(', ')
+        return strHand
     }
 
     hit(){
-        this.hand.push(randomNumber())
+        const card = randomNumber()
+        this.hand.push(card)
+        return card
     }
 }
 
@@ -211,7 +215,7 @@ class Dealer extends GameMember{
         }
         else {
             if (this.handTotal() < 22){
-                console.log(`Dealer stands with ${this.displayHand()} for a total of ${this.handTotal()}`)
+                console.log(`Dealer stands with ${this.displayHand()} for a total of ${this.handTotal}`)
                 return 'stand'
             }
             else{
@@ -246,7 +250,7 @@ function blackJack(){
     const player = new Player()
 
     console.log(`Dealer shows: ${dealer.hand[0]}`)
-    console.log(`Player shows: ${player.displayHand()}`)
+    console.log(`Player shows: ${player.hand[0]}, ${player.hand[1]} for a total of ${player.handTotal()}`)
     const plDecision = player.decision()
     const deDecision = dealer.decision()
     if (plDecision === 'bust'){
